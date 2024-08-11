@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class GetPowerUp : MonoBehaviour
 {
@@ -9,16 +10,24 @@ public class GetPowerUp : MonoBehaviour
     [SerializeField] Transform aimTransform;
     [SerializeField] float maxDistance = 12f;
 
-    private bool isActive = false;
     private int powerUpLayerMask;
+    private bool isActive = false;
+    private int activePowerUpInstanceID = 0;
+    private PowerUp activePowerUp = null;
+    private float elapsedPowerUpTime = 0f;
 
     void Start()
     {
         powerUpLayerMask = LayerMask.GetMask("Power-ups");
+
         if (activateAction)
         {
-            activateAction.action.performed += (_) => isActive = true;
-            activateAction.action.canceled += (_) => isActive = false;
+            activateAction.action.started += (_) => isActive = true;
+
+            activateAction.action.canceled += (_) => {
+                isActive = false;
+                ResetValues();
+            };
         }
     }
 
@@ -27,10 +36,41 @@ public class GetPowerUp : MonoBehaviour
         if (isActive)
         {
             RaycastHit hitPoint;
-            if (Physics.Raycast(aimTransform.position, aimTransform.forward, maxDistance, powerUpLayerMask))
+            if (Physics.Raycast(aimTransform.position, aimTransform.forward, out hitPoint, maxDistance, powerUpLayerMask, QueryTriggerInteraction.UseGlobal))
             {
-                Debug.Log("Hit power-up");
+
+                if (activePowerUpInstanceID != hitPoint.collider.gameObject.GetInstanceID())
+                {
+                    elapsedPowerUpTime = 0f;
+                    activePowerUpInstanceID = hitPoint.collider.gameObject.GetInstanceID();
+                    activePowerUp = hitPoint.collider.gameObject.GetComponent<PowerUp>();
+                }
+
+                if (activePowerUp)
+                {
+                    elapsedPowerUpTime += Time.deltaTime;
+
+                    if (elapsedPowerUpTime >= activePowerUp.ActivationTime)
+                    {
+                        elapsedPowerUpTime = 0f;
+                        if (activePowerUp)
+                        {
+                            activePowerUp.GetPowerUp();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ResetValues();
             }
         }
+    }
+
+    private void ResetValues()
+    {
+        elapsedPowerUpTime = 0f;
+        activePowerUp = null;
+        activePowerUpInstanceID = 0;
     }
 }
