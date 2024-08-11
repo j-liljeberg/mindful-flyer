@@ -1973,6 +1973,7 @@ GameObject:
   - component: {fileID: 876268129}
   - component: {fileID: 876268133}
   - component: {fileID: 876268134}
+  - component: {fileID: 876268135}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2057,6 +2058,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1707278417237839401, guid: b29c2e56f69d3984399fd0c37ee1ded3,
     type: 3}
   aimTransform: {fileID: 1390533654}
+  energyDrain: 5
 --- !u!114 &876268134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2073,6 +2075,19 @@ MonoBehaviour:
     type: 3}
   aimTransform: {fileID: 945048552}
   maxDistance: 12
+--- !u!114 &876268135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876268128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662f7728c377caa4ca841dcaa7562c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 50
 --- !u!1 &945048551
 GameObject:
   m_ObjectHideFlags: 0

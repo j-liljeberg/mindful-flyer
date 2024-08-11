@@ -8,8 +8,10 @@ public class ShootWeapon : MonoBehaviour
 {
     [SerializeField] InputActionReference shootAction;
     [SerializeField] Projectile projectilePrefab;
-
     [SerializeField] Transform aimTransform;
+    [SerializeField] float energyDrain = 5f;
+
+    private PlayerEnergy playerEnergy = null;
 
     void Start()
     {
@@ -17,13 +19,15 @@ public class ShootWeapon : MonoBehaviour
         {
             shootAction.action.performed += Shoot;
         }
+
+        playerEnergy = GetComponent<PlayerEnergy>();
     }
 
     private void Shoot(InputAction.CallbackContext context)
     {
-        Debug.Log("Shoot");
-        Projectile projectile = Instantiate(projectilePrefab, transform.position + aimTransform.forward, aimTransform.rotation);
-        // Debug.Log(aimTransform.forward);
-        // projectile.Shoot(aimTransform.forward);
+        if (playerEnergy && playerEnergy.TryToUse(energyDrain))
+        {
+            Instantiate(projectilePrefab, transform.position + aimTransform.forward, aimTransform.rotation);
+        }
     }
 }

@@ -16,6 +16,8 @@ public class GetPowerUp : MonoBehaviour
     private PowerUp activePowerUp = null;
     private float elapsedPowerUpTime = 0f;
 
+    private PlayerEnergy playerEnergy = null;
+
     void Start()
     {
         powerUpLayerMask = LayerMask.GetMask("Power-ups");
@@ -29,6 +31,8 @@ public class GetPowerUp : MonoBehaviour
                 ResetValues();
             };
         }
+
+        playerEnergy = GetComponent<PlayerEnergy>();
     }
 
     void Update()
@@ -53,9 +57,11 @@ public class GetPowerUp : MonoBehaviour
                     if (elapsedPowerUpTime >= activePowerUp.ActivationTime)
                     {
                         elapsedPowerUpTime = 0f;
-                        if (activePowerUp)
+                        float? energy = activePowerUp?.GetPowerUp();
+
+                        if (energy.HasValue)
                         {
-                            activePowerUp.GetPowerUp();
+                            playerEnergy?.Increase(energy.Value);
                         }
                     }
                 }
