@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
+[RequireComponent(typeof(PlayerEnergy))]
 public class GetPowerUp : MonoBehaviour
 {
     [SerializeField] InputActionReference activateAction;
@@ -61,7 +61,7 @@ public class GetPowerUp : MonoBehaviour
 
                         if (energy.HasValue)
                         {
-                            playerEnergy?.Increase(energy.Value);
+                            playerEnergy.Increase(energy.Value);
                         }
                     }
                 }

@@ -13,4 +13,14 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.velocity = rb.transform.forward * speed;
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
 }

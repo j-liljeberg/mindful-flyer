@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerEnergy : MonoBehaviour
 {
@@ -36,6 +37,12 @@ public class PlayerEnergy : MonoBehaviour
         {
             displayedEnergy = energy;
             Debug.Log($"Energy: {displayedEnergy}");
+
+            if (energy < 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Debug.Log("Player is dead");
+            }
         }
     }
 }
