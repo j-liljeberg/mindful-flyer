@@ -9,7 +9,7 @@ public class ShootWeapon : MonoBehaviour
     [SerializeField] InputActionReference shootAction;
     [SerializeField] Projectile projectilePrefab;
     [SerializeField] Transform aimTransform;
-    [SerializeField] float energyDrain = 5f;
+    [SerializeField] int energyDrain = 5;
 
     private PlayerEnergy playerEnergy = null;
 

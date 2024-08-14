@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] float availablePower = 30f;
-    [SerializeField] float powerRate = 10f;
+    [SerializeField] int availablePower = 30;
+    [SerializeField] int powerRate = 10;
     [SerializeField] float activationTime = 1f;
 
     public float ActivationTime { get { return activationTime; } }
 
-    public float GetPowerUp()
+    public int GetPowerUp()
     {
         if (availablePower >= powerRate)
         {

@@ -57,7 +57,7 @@ public class GetPowerUp : MonoBehaviour
                     if (elapsedPowerUpTime >= activePowerUp.ActivationTime)
                     {
                         elapsedPowerUpTime = 0f;
-                        float? energy = activePowerUp?.GetPowerUp();
+                        int? energy = activePowerUp?.GetPowerUp();
 
                         if (energy.HasValue)
                         {

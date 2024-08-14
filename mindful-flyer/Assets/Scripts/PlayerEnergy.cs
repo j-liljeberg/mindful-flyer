@@ -5,44 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class PlayerEnergy : MonoBehaviour
 {
-    [SerializeField] float energy;
+    [SerializeField] int energy;
 
     public float Energy { get { return energy; } }
 
-    private float displayedEnergy; // TODO: Remove when HUD is implemented
+    private bool firstUpdate = true;
 
-    public void Increase(float energy)
+
+    void Update()
+    {
+        if (firstUpdate)
+        {
+            UpdateEnergy();
+            firstUpdate = false;
+        }
+    }
+
+    public void Increase(int energy)
     {
         this.energy += energy;
+        UpdateEnergy();
     }
 
-    public void Decrease(float energy)
+    public void Decrease(int energy)
     {
         this.energy -= energy;
+        UpdateEnergy();
     }
 
-    public bool TryToUse(float energy)
+    public bool TryToUse(int energy)
     {
         if (this.energy >= energy)
         {
             this.energy -= energy;
+            UpdateEnergy();
             return true;
         }
         return false;
     }
 
-    void Update()
+    private void UpdateEnergy()
     {
-        if(displayedEnergy != energy)
-        {
-            displayedEnergy = energy;
-            Debug.Log($"Energy: {displayedEnergy}");
-
-            if (energy < 0)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                Debug.Log("Player is dead");
-            }
-        }
+        GameEvents.Instance.EnergyChanged(energy);
     }
 }
