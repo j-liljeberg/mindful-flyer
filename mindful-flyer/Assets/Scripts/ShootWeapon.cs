@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 public class ShootWeapon : MonoBehaviour
 {
     [SerializeField] InputActionReference shootAction;
-    [SerializeField] Projectile projectilePrefab;
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] GameObject secondProjectilePrefab;
+
     [SerializeField] Transform aimTransform;
     [SerializeField] int energyDrain = 5;
 
@@ -28,6 +30,7 @@ public class ShootWeapon : MonoBehaviour
         if (playerEnergy && playerEnergy.TryToUse(energyDrain))
         {
             Instantiate(projectilePrefab, transform.position + aimTransform.forward, aimTransform.rotation);
+            Instantiate(secondProjectilePrefab, transform.position + aimTransform.forward * 0.5f, aimTransform.rotation);
         }
     }
 }
