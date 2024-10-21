@@ -24,4 +24,10 @@ public class GameEvents : MonoBehaviour
     {
         OnEnergyChanged?.Invoke(health);
     }
+
+    public event Action OnRestart;
+    public void Restart()
+    {
+        OnRestart?.Invoke();
+    }
 }
