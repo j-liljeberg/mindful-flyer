@@ -35,6 +35,7 @@ public class Spawner : MonoBehaviour
     private void SpawnPrefab()
     {
         GameObject gameObject = Instantiate(prefab, transform.position, transform.rotation);
+        gameObject.transform.parent = transform;
 
         Rigidbody rb;
         if (gameObject.TryGetComponent<Rigidbody>(out rb))

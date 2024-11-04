@@ -19,6 +19,8 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    // Register to event in Start()
+
     public event Action<int> OnEnergyChanged;
     public void EnergyChanged(int health)
     {
@@ -29,5 +31,17 @@ public class GameEvents : MonoBehaviour
     public void Restart()
     {
         OnRestart?.Invoke();
+    }
+
+    public event Action OnLevelHalfway;
+    public void LevelHalfway()
+    {
+        OnLevelHalfway?.Invoke();
+    }
+
+    public event Action OnLevelEnd;
+    public void LevelEnd()
+    {
+        OnLevelEnd?.Invoke();
     }
 }
