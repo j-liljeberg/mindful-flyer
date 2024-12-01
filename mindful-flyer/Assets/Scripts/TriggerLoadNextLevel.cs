@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LevelHalfway : MonoBehaviour
+public class TriggerLoadNextLevel : MonoBehaviour
 {
     private Transform player;
 
     private bool isActivated = false;
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;

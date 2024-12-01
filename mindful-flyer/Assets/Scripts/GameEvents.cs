@@ -33,10 +33,10 @@ public class GameEvents : MonoBehaviour
         OnRestart?.Invoke();
     }
 
-    public event Action OnLevelHalfway;
-    public void LevelHalfway()
+    public event Action OnLoadNextLevel;
+    public void LoadNextLevel()
     {
-        OnLevelHalfway?.Invoke();
+        OnLoadNextLevel?.Invoke();
     }
 
     public event Action OnLevelEnd;

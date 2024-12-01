@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        GameEvents.Instance.OnLevelHalfway += LevelHalfway;
+        GameEvents.Instance.OnLoadNextLevel += LevelHalfway;
         GameEvents.Instance.OnLevelEnd += LevelEnd;
 
         if (loadLevelOnStartUp)
